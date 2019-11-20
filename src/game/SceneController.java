@@ -20,12 +20,14 @@ public class SceneController {
 
 	private Image image;
 	private Floor floor = new Floor();
-	public Ball ball = new Ball(ballImage);
+	public Ball ball = new Ball();
 
 	@FXML
 	void initialize() {
+		System.out.print(ballImage);
 		image = floor.assignImage("normal");
 		base.getChildren().add(floor.generate(image, 0, 500, 13));
+		ball.gravity(ballImage);
 	}
 
 }

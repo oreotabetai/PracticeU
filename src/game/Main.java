@@ -20,7 +20,6 @@ public class Main extends Application {
 			scene = new Scene(root, 400, 800);
 			stage.setScene(scene);
 			stage.show();
-
 			scene.setOnKeyPressed(e -> keyPressed(e));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -35,6 +34,10 @@ public class Main extends Application {
 		switch (e.getCode()) {
 		case SPACE:
 			System.out.print("space");
+			break;
+		case LEFT:
+			break;
+		case RIGHT:
 			break;
 		default:
 			break;
