@@ -5,13 +5,13 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 	private static Stage stage = new Stage();
-	public static Scene scene;
+	private static Scene scene;
+	Ball ball = new Ball();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -20,7 +20,6 @@ public class Main extends Application {
 			scene = new Scene(root, 400, 800);
 			stage.setScene(scene);
 			stage.show();
-			scene.setOnKeyPressed(e -> keyPressed(e));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -28,19 +27,5 @@ public class Main extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
-	}
-
-	private void keyPressed(KeyEvent e) {
-		switch (e.getCode()) {
-		case SPACE:
-			System.out.print("space");
-			break;
-		case LEFT:
-			break;
-		case RIGHT:
-			break;
-		default:
-			break;
-		}
 	}
 }

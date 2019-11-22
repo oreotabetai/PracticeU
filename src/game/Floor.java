@@ -2,21 +2,13 @@ package game;
 
 import java.net.URISyntaxException;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 public class Floor {
 	private static final String FLOOR_NORMAL = "../images/floorNormal.png";
 	private Group group = new Group(); // 床をグループ化する
-	private Node ball;
-	private Node floor;
 
 	public Image assignImage(String type) {
 		if (type.equals("normal")) {
@@ -45,36 +37,7 @@ public class Floor {
 	}
 
 	// 床が自動であがる。
-	public AnchorPane fallFloors(AnchorPane base) {
-		ball = base.getChildren().get(0);
-		floor = base.getChildren().get(1);
-		if (collideObject(ball, floor) && !Ball.isAir) {
-			floor.setLayoutY(floor.getLayoutY());
-		} else {
-			floor.setLayoutY(floor.getLayoutY() - 0.5);
-		}
-		return base;
-	}
+	public void fallFloors() {
 
-	public AnchorPane jump(AnchorPane base) {
-		ball = base.getChildren().get(0);
-		floor = base.getChildren().get(1);
-		final Timeline timeline = new Timeline();
-		timeline.setCycleCount(1);
-		timeline.setAutoReverse(true);
-		//
-		timeline.getKeyFrames().add(new KeyFrame(Duration.millis(5000),
-				   new KeyValue (floor.translateYProperty(), 10)));
-		timeline.play();
-		return base;
 	}
-
-	private boolean collideObject(Node object1, Node object2) {
-		if (object1.getBoundsInParent().intersects(object2.getBoundsInParent())) {
-			Ball.isAir = false;
-			return true;
-		}
-		return false;
-	}
-
 }
