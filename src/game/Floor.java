@@ -47,7 +47,6 @@ public class Floor implements BaseSharer{
 	public void fallFloors() {
 
 	}
-
 	@Override
 	public void setOwner(BaseOwner owner) {
 		this.owner = owner;
