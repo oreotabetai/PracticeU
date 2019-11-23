@@ -1,14 +1,21 @@
 package game;
 
+
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
-public class Floor {
+public class Floor implements BaseSharer{
 	private static final String FLOOR_NORMAL = "../images/floorNormal.png";
 	private Group group = new Group(); // 床をグループ化する
+	private BaseOwner owner;
+	//階段をリスト化
+	//private List<Group> floorList = new ArrayList<>();
 
 	public Image assignImage(String type) {
 		if (type.equals("normal")) {
@@ -39,5 +46,20 @@ public class Floor {
 	// 床が自動であがる。
 	public void fallFloors() {
 
+	}
+
+	@Override
+	public void setOwner(BaseOwner owner) {
+		this.owner = owner;
+	}
+
+	@Override
+	public AnchorPane getBase() {
+		return owner.getBase();
+	}
+
+	@Override
+	public void setBase(AnchorPane base) {
+		owner.setBase(base);
 	}
 }

@@ -5,10 +5,12 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
-public class Ball {
+public class Ball implements BaseSharer{
 	private ImageView ballImage;
+	private BaseOwner owner;
 	public static boolean isAir = true;
 
 	public void leftSide() {
@@ -42,5 +44,21 @@ public class Ball {
 	public void jump() {
 
 	}
+
+	@Override
+	public void setOwner(BaseOwner owner) {
+		this.owner = owner;
+	}
+
+	@Override
+	public AnchorPane getBase() {
+		return owner.getBase();
+	}
+
+	@Override
+	public void setBase(AnchorPane base) {
+		owner.setBase(base);
+	}
+
 
 }
