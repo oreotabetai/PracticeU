@@ -26,7 +26,7 @@ public class Ball implements BaseSharer{
 			ballImage.setLayoutX(ballImage.getLayoutX() + 1);
 		}
 	}
-
+	// ƒ^ƒCƒ€ƒ‰ƒCƒ“
 	public void gravity(ImageView ballImage) {
 		Timeline ballTimer = new Timeline(new KeyFrame(Duration.millis(60), new EventHandler<ActionEvent>() {
 
