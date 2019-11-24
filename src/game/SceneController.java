@@ -12,16 +12,16 @@ public class SceneController implements BaseOwner {
 	@FXML
 	private AnchorPane base;
 
-	private Image image;
-
 	@FXML
 	void initialize() {
 		Floor floor = new Floor();
 		Ball ball = new Ball();
 		SceneController scene = new SceneController();
+
+		scene.setBase(base);
+		scene.setSharers(floor, ball);
 		// ‚¢‚¸‚ê‚Ífloor‚É
-		image = floor.assignImage("normal");
-		base.getChildren().add(floor.generate(image, 0, 500, 13));
+		floor.putFirstFloors();
 		scene.setBase(base);
 		scene.setSharers(floor, ball);
 	}
