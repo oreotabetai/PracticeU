@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,7 +29,7 @@ public class Floor implements BaseSharer {
 	private final String FLOOR_SLIDE_PATH = "../images/floorSlide.png";
 
 	// 階段をリスト化
-	private List<Group> floorList = new ArrayList<>();
+	private ArrayList<Group> floorList = new ArrayList<>();
 
 	private Image image;
 
@@ -75,7 +76,13 @@ public class Floor implements BaseSharer {
 		generate(assignImage("normal"), 0, 500, 13);
 		generate(assignImage("normal"), 50, 100, 5);
 		generate(assignImage("normal"), 70, 300, 5);
+
 		base.getChildren().addAll(floorList);
+
+		//baseに新しい床を追加する
+		generate(assignImage("ice"), 70, -20, 5);
+		base.getChildren().add(floorList.get(floorList.size()-1));
+
 		fallFloors();
 	}
 
@@ -91,7 +98,7 @@ public class Floor implements BaseSharer {
 			@Override
 			public void handle(ActionEvent event) {
 				for (Group floors : floorList) {
-
+					floors.setTranslateY(floors.getTranslateY() + 1);
 				}
 			}
 		}));
