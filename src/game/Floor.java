@@ -4,6 +4,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -79,16 +80,59 @@ public class Floor implements BaseSharer {
 
 		base.getChildren().addAll(floorList);
 
-		//baseに新しい床を追加する
-		generate(assignImage("ice"), 70, -20, 5);
-		base.getChildren().add(floorList.get(floorList.size()-1));
-
+		// baseに新しい床を追加する
+		addNewFloors();
 		fallFloors();
 	}
 
 	// 床を加える
-	private void addNewFloor() {
+	private void addNewFloors() {
+		generate(assignImage(randType()),decideX(0) ,0, amountBlocks(0));
+		base.getChildren().add(floorList.get(floorList.size() - 1));
+	}
 
+	// 種類をランダムに設定
+	private String randType() {
+		Random rand = new Random();
+		switch (rand.nextInt(4)) {
+		case 0:
+			return FLOOR_NORMAL;
+		case 1:
+			return FLOOR_ICE;
+		case 2:
+			return FLOOR_ROLL;
+		case 3:
+			return FLOOR_SLIDE;
+		default:
+			break;
+		}
+		return FLOOR_NORMAL;
+	}
+
+	// 生成するX座標
+	private int decideX(int score) {
+		Random rand = new Random();
+		return rand.nextInt((int)(base.getPrefWidth()) - (amountBlocks(score) * 32));
+	}
+
+	// 生成するブロック数
+	private int amountBlocks(int score) {
+		if (score <= 80) {
+			return 5;
+		}
+		if (score <= 100) {
+			return 4;
+		}
+		if (score <= 120) {
+			return 3;
+		}
+		if (score <= 200) {
+			return 2;
+		}
+		if (200 < score) {
+			return 1;
+		}
+		return 0;
 	}
 
 	// 床を落とす ボールのジャンプの値だけ
