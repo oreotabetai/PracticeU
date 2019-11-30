@@ -3,7 +3,6 @@ package game;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 
 import javafx.animation.KeyFrame;
@@ -11,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -30,9 +28,7 @@ public class Floor implements BaseSharer {
 	private final String FLOOR_SLIDE_PATH = "../images/floorSlide.png";
 
 	// 階段をリスト化
-	private ArrayList<Group> floorList = new ArrayList<>();
-
-	private Image image;
+	public static ArrayList<Group> floorList = new ArrayList<>();
 
 	private String type;
 
@@ -56,7 +52,7 @@ public class Floor implements BaseSharer {
 	}
 
 	// 床を座標(x, y)にblocks 分生成する
-	private void generate(Image image, double x, double y, int blocks) {
+	private void generate(String type, Image image, double x, double y, int blocks) {
 		// blocks 分
 		Group group = new Group(); // 床をグループ化する
 		double width = image.getWidth();
@@ -68,26 +64,27 @@ public class Floor implements BaseSharer {
 			group.getChildren().add(imageView);
 			x += width;
 		}
+		group.setId(type);
 		floorList.add(group);
 	}
 
 	// 最初の床を置く
 	public void putFirstFloors() {
 		base = owner.getBase();
-		generate(assignImage("normal"), 0, 500, 13);
-		generate(assignImage("normal"), 50, 100, 5);
-		generate(assignImage("normal"), 70, 300, 5);
+		generate("normal", assignImage("normal"), 0, 500, 13);
+		generate("normal", assignImage("normal"), 50, 100, 5);
+		generate("normal", assignImage("normal"), 70, 300, 5);
 
 		base.getChildren().addAll(floorList);
 
 		// baseに新しい床を追加する
 		addNewFloors();
-		fallFloors();
+		//fallFloors();
 	}
 
 	// 床を加える
 	private void addNewFloors() {
-		generate(assignImage(randType()),decideX(0) ,0, amountBlocks(0));
+		generate(randType(),assignImage(randType()), decideX(0), 0, amountBlocks(0));
 		base.getChildren().add(floorList.get(floorList.size() - 1));
 	}
 
@@ -112,7 +109,7 @@ public class Floor implements BaseSharer {
 	// 生成するX座標
 	private int decideX(int score) {
 		Random rand = new Random();
-		return rand.nextInt((int)(base.getPrefWidth()) - (amountBlocks(score) * 32));
+		return rand.nextInt((int) (base.getPrefWidth()) - (amountBlocks(score) * 32));
 	}
 
 	// 生成するブロック数
