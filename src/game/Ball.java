@@ -35,8 +35,8 @@ public class Ball implements BaseSharer {
 			@Override
 			public void handle(ActionEvent event) {
 				if (isAir) {
-					ballImage.setLayoutY(ballImage.getLayoutY() + 1);
 					for (int i = 0; i < Floor.floorList.size(); i++) {
+						Floor.floorList.get(i).setTranslateY(Floor.floorList.get(i).getTranslateY() - 1);
 						if (collideObject(ballImage, Floor.floorList.get(i))) {
 							System.out.print("b");
 							isAir = false;
@@ -58,10 +58,6 @@ public class Ball implements BaseSharer {
 
 		}
 		return false;
-	}
-
-	public void jump() {
-		isAir = true;
 	}
 
 	@Override

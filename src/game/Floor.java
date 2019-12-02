@@ -133,7 +133,8 @@ public class Floor implements BaseSharer {
 	}
 
 	// 床を落とす ボールのジャンプの値だけ
-	private void fallFloors() {
+	public void jump() {
+		Ball.isAir = false;
 		Timeline floorTimer = new Timeline(new KeyFrame(Duration.millis(60), new EventHandler<ActionEvent>() {
 
 			@Override
