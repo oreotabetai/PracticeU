@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	private static Stage stage = new Stage();
 	private static Scene scene;
+	private int time = 0;
 	Floor floor = new Floor();
 	Ball ball = new Ball();
 
@@ -21,6 +22,7 @@ public class Main extends Application {
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("Scene.fxml"));
 			scene = new Scene(root, 400, 800);
 			scene.setOnKeyPressed(e -> keyPressedEvent(e));
+			scene.setOnKeyReleased(e -> keyReleasedEvent(e));
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
@@ -35,8 +37,21 @@ public class Main extends Application {
 	private void keyPressedEvent(KeyEvent e) {
 		switch (e.getCode()) {
 		case SPACE:
-			System.out.print("space");
-			floor.jump();
+			time += 20;
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void keyReleasedEvent(KeyEvent e) {
+		switch (e.getCode()) {
+		case SPACE:
+			//System.out.print(time);
+			if (ball.isAir == false) {
+				floor.jump(time);
+			}
+			time = 0;
 			break;
 		default:
 			break;
