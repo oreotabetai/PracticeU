@@ -36,6 +36,9 @@ public class Floor implements BaseSharer {
 
 	private AnchorPane base;
 
+	// 鉛直投げ上げの横軸
+	private int x = 0;
+
 	private Image assignImage(String type) {
 		HashMap<String, String> hashmap = new HashMap<String, String>();
 		hashmap.put(FLOOR_NORMAL, FLOOR_NORMAL_PATH);
@@ -79,12 +82,12 @@ public class Floor implements BaseSharer {
 
 		// baseに新しい床を追加する
 		addNewFloors();
-		//fallFloors();
+		// fallFloors();
 	}
 
 	// 床を加える
 	private void addNewFloors() {
-		generate(randType(),assignImage(randType()), decideX(0), 0, amountBlocks(0));
+		generate(randType(), assignImage(randType()), decideX(0), 0, amountBlocks(0));
 		base.getChildren().add(floorList.get(floorList.size() - 1));
 	}
 
@@ -133,19 +136,36 @@ public class Floor implements BaseSharer {
 	}
 
 	// 床を落とす ボールのジャンプの値だけ
-	public void jump() {
-		Ball.isAir = false;
+	public void jump(int time) {
+		Ball.isAir = true;
 		Timeline floorTimer = new Timeline(new KeyFrame(Duration.millis(60), new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
+				x++;
 				for (Group floors : floorList) {
-					floors.setTranslateY(floors.getTranslateY() + 1);
+					floors.setTranslateY(floors.getTranslateY() + height(time, x));
+					System.out.print(height(time, x));
+					if(height(time, x) < 0) {
+						Ball.isAir = false;
+					}
+					// System.out.print(x);
+					System.out.println();
 				}
+
 			}
 		}));
+		if(!Ball.isAir) {
+			System.out.print("true");
+			floorTimer.stop();
+		}
 		floorTimer.setCycleCount(Timeline.INDEFINITE);
 		floorTimer.play();
+	}
+
+	// ジャンプの高さを決める(鉛直投げ上げ)
+	private double height(int v, int t) {
+		double g = 4.9;
+		return (v * t) - (g * t * t / 2);
 	}
 
 	@Override

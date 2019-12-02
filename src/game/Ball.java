@@ -14,16 +14,18 @@ public class Ball implements BaseSharer {
 	private BaseOwner owner;
 	public static boolean isAir = true;
 
+	Ball(){
+		isAir = true;
+	}
+
 	public void leftSide() {
 		if (isAir) {
-			// System.out.print(ballImage);
 			ballImage.setLayoutX(ballImage.getLayoutX() - 1);
 		}
 	}
 
 	public void rightSide() {
 		if (isAir) {
-			// System.out.print(ballImage);
 			ballImage.setLayoutX(ballImage.getLayoutX() + 1);
 		}
 	}
@@ -36,9 +38,8 @@ public class Ball implements BaseSharer {
 			public void handle(ActionEvent event) {
 				if (isAir) {
 					for (int i = 0; i < Floor.floorList.size(); i++) {
-						Floor.floorList.get(i).setTranslateY(Floor.floorList.get(i).getTranslateY() - 1);
+						Floor.floorList.get(i).setTranslateY(Floor.floorList.get(i).getTranslateY() - 3);
 						if (collideObject(ballImage, Floor.floorList.get(i))) {
-							System.out.print("b");
 							isAir = false;
 						}
 					}
