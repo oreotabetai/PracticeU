@@ -22,6 +22,7 @@ public class SceneController implements BaseOwner {
 		scene.setSharers(floor, ball);
 		// ‚¢‚¸‚ê‚Ífloor‚É
 		floor.putFirstFloors();
+		ball.gravity(ballImage);
 		scene.setBase(base);
 		scene.setSharers(floor, ball);
 	}

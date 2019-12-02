@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	private static Stage stage = new Stage();
 	private static Scene scene;
+	Floor floor = new Floor();
 	Ball ball = new Ball();
 
 	@Override
@@ -35,6 +36,7 @@ public class Main extends Application {
 		switch (e.getCode()) {
 		case SPACE:
 			System.out.print("space");
+			floor.jump();
 			break;
 		default:
 			break;
